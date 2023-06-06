@@ -3,6 +3,7 @@ import { useSession, signIn, signOut } from "next-auth/react";
 import { useCallback, useState } from "react";
 import { FieldValues, useForm, SubmitHandler } from "react-hook-form";
 import Input from "./inputs/Input";
+import Button from "./Button";
 
 type Variant = "LOGIN" | "REGISTER";
 
@@ -48,13 +49,32 @@ export default function AuthForm() {
 
   return (
     <>
-      <div className="bg-red-600 h-screen w-full flex justify-items-center items-center">
+      <div className="h-screen w-full flex flex-col justify-center items-center bg-gray-300">
+        <h2 className="text-lg font-bold pb-4">Sign In to your account</h2>
         <form
           onSubmit={onSubmit}
-          className="w-full h-full text-center flex justify-center items-center"
+          className="w-[300px] bg-gray-100 p-4 rounded flex gap-2 flex-col justify-center items-center"
         >
-          <Input label="Email" id="email" register={register}/>
+          {variant === "REGISTER" && (
+            <Input label="Name" id="name" register={register} errors={errors} />
+          )}
+          <Input label="Email" id="email" register={register} errors={errors} />
+          <Input
+            label="Password"
+            id="password"
+            register={register}
+            errors={errors}
+          />
+          <Button
+            onClick={() => {}}
+            fullWidth
+            type="submit"
+            disabled={isLoading}
+          >
+            {variant === "LOGIN" ? "Sign In" : "Register"}
+          </Button>
         </form>
+        <div></div>
       </div>
     </>
   );
