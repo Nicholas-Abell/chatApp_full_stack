@@ -2,8 +2,10 @@
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useCallback, useState } from "react";
 import { FieldValues, useForm, SubmitHandler } from "react-hook-form";
-import Input from "./inputs/Input";
-import Button from "./Button";
+import Input from "../../components/inputs/Input";
+import Button from "../../components/inputs/Button";
+import AuthSocialButton from "./AuthSocialButton";
+import { BsGithub, BsGoogle } from "react-icons/bs";
 
 type Variant = "LOGIN" | "REGISTER";
 
@@ -73,8 +75,20 @@ export default function AuthForm() {
           >
             {variant === "LOGIN" ? "Sign In" : "Register"}
           </Button>
+          <div>
+            <p>Or continue with</p>
+            <div className="flex justify-center items-center mt-6 gap-2">
+              <AuthSocialButton
+                icon={BsGithub}
+                onClick={() => socialAction("github")}
+              />
+              <AuthSocialButton
+                icon={BsGoogle}
+                onClick={() => socialAction("google")}
+              />
+            </div>
+          </div>
         </form>
-        <div></div>
       </div>
     </>
   );
