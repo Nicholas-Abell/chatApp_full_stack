@@ -76,7 +76,7 @@ export default function AuthForm() {
             {variant === "LOGIN" ? "Sign In" : "Register"}
           </Button>
           <div>
-            <p>Or continue with</p>
+            <p className="text-center">Or continue with</p>
             <div className="flex justify-center items-center mt-6 gap-2">
               <AuthSocialButton
                 icon={BsGithub}
@@ -86,6 +86,19 @@ export default function AuthForm() {
                 icon={BsGoogle}
                 onClick={() => socialAction("google")}
               />
+            </div>
+            <div className="flex justify-center items-center gap-2 px-2 text-sm mt-6 text-gray-300">
+              <div>
+                {variant === "LOGIN"
+                  ? "New to Messenger?"
+                  : "Already a Member?"}
+              </div>
+              <div
+                onClick={toggleVariant}
+                className=" underline cursor-pointer"
+              >
+                {variant === "LOGIN" ? "Create an Acount" : "Login"}
+              </div>
             </div>
           </div>
         </form>
