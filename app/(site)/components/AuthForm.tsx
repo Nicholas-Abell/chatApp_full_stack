@@ -6,6 +6,7 @@ import Input from "../../components/inputs/Input";
 import Button from "../../components/inputs/Button";
 import AuthSocialButton from "./AuthSocialButton";
 import { BsGithub, BsGoogle } from "react-icons/bs";
+import axios from "axios";
 
 type Variant = "LOGIN" | "REGISTER";
 
@@ -36,7 +37,7 @@ export default function AuthForm() {
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
     if (variant === "REGISTER") {
-      //axios register
+      axios.post("/api/register", data);
     }
     if (variant === "LOGIN") {
       //next auth signin
@@ -50,59 +51,104 @@ export default function AuthForm() {
   };
 
   return (
-    <>
-      <div className="h-screen w-full flex flex-col justify-center items-center bg-gray-300">
-        <h2 className="text-lg font-bold pb-4">Sign In to your account</h2>
-        <form
-          onSubmit={onSubmit}
-          className="w-[300px] bg-gray-100 p-4 rounded flex gap-2 flex-col justify-center items-center"
-        >
+    <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+      <div
+        className="
+        bg-white
+          px-4
+          py-8
+          shadow
+          sm:rounded-lg
+          sm:px-10
+        "
+      >
+        <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
           {variant === "REGISTER" && (
-            <Input label="Name" id="name" register={register} errors={errors} />
+            <Input
+              disabled={isLoading}
+              register={register}
+              errors={errors}
+              required
+              id="name"
+              label="Name"
+            />
           )}
-          <Input label="Email" id="email" register={register} errors={errors} />
           <Input
-            label="Password"
-            id="password"
+            disabled={isLoading}
             register={register}
             errors={errors}
+            required
+            id="email"
+            label="Email address"
+            type="email"
           />
-          <Button
-            onClick={() => {}}
-            fullWidth
-            type="submit"
+          <Input
             disabled={isLoading}
-          >
-            {variant === "LOGIN" ? "Sign In" : "Register"}
-          </Button>
+            register={register}
+            errors={errors}
+            required
+            id="password"
+            label="Password"
+            type="password"
+          />
           <div>
-            <p className="text-center">Or continue with</p>
-            <div className="flex justify-center items-center mt-6 gap-2">
-              <AuthSocialButton
-                icon={BsGithub}
-                onClick={() => socialAction("github")}
-              />
-              <AuthSocialButton
-                icon={BsGoogle}
-                onClick={() => socialAction("google")}
-              />
-            </div>
-            <div className="flex justify-center items-center gap-2 px-2 text-sm mt-6 text-gray-300">
-              <div>
-                {variant === "LOGIN"
-                  ? "New to Messenger?"
-                  : "Already a Member?"}
-              </div>
-              <div
-                onClick={toggleVariant}
-                className=" underline cursor-pointer"
-              >
-                {variant === "LOGIN" ? "Create an Acount" : "Login"}
-              </div>
-            </div>
+            <Button disabled={isLoading} fullWidth type="submit">
+              {variant === "LOGIN" ? "Sign in" : "Register"}
+            </Button>
           </div>
         </form>
+
+        <div className="mt-6">
+          <div className="relative">
+            <div
+              className="
+                absolute 
+                inset-0 
+                flex 
+                items-center
+              "
+            >
+              <div className="w-full border-t border-gray-300" />
+            </div>
+            <div className="relative flex justify-center text-sm">
+              <span className="bg-white px-2 text-gray-500">
+                Or continue with
+              </span>
+            </div>
+          </div>
+
+          <div className="mt-6 flex gap-2">
+            <AuthSocialButton
+              icon={BsGithub}
+              onClick={() => socialAction("github")}
+            />
+            <AuthSocialButton
+              icon={BsGoogle}
+              onClick={() => socialAction("google")}
+            />
+          </div>
+        </div>
+        <div
+          className="
+            flex 
+            gap-2 
+            justify-center 
+            text-sm 
+            mt-6 
+            px-2 
+            text-gray-500
+          "
+        >
+          <div>
+            {variant === "LOGIN"
+              ? "New to Messenger?"
+              : "Already have an account?"}
+          </div>
+          <div onClick={toggleVariant} className="underline cursor-pointer">
+            {variant === "LOGIN" ? "Create an account" : "Login"}
+          </div>
+        </div>
       </div>
-    </>
+    </div>
   );
 }
