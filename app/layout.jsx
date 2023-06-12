@@ -2,6 +2,7 @@
 import "./globals.css";
 import { SessionProvider, session } from "next-auth/react";
 import ToasterContext from './context/ToasterContext';
+import AuthContext from "./context/AuthContext";
 
 export const metadata = {
   title: "Create Next App",
@@ -15,8 +16,10 @@ export default function RootLayout({
     <html lang="en">
       <body>      
         <SessionProvider session={session}>
+          <AuthContext>
           <ToasterContext />
-          {children}      
+          {children}   
+          </AuthContext>   
         </ SessionProvider>
       </body>
     </html>
