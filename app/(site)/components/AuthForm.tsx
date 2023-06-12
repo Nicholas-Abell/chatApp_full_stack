@@ -65,7 +65,18 @@ export default function AuthForm() {
   const socialAction = (action: string) => {
     setIsLoading(true);
 
-    //next auth social sign in
+    signIn(action, { redirect: false })
+      .then((callback) => {
+        if (callback?.error) {
+          toast.error("Invalid Credentials");
+        }
+        if (callback?.ok && !callback?.error) {
+          toast.success("Logged In");
+        }
+      })
+      .finally(() => {
+        setIsLoading(false), console.log("click");
+      });
   };
 
   return (
