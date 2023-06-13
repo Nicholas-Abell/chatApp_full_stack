@@ -20,10 +20,10 @@ export default function AuthForm() {
 
   useEffect(() => {
     if (session?.status === "authenticated") {
-      router.push("/users");
       console.log("Authenticated");
+      router.push("/users");
     }
-  }, [session?.status]);
+  }, [session?.status, router]);
 
   const toggleVariant = useCallback(() => {
     if (variant === "LOGIN") setVariant("REGISTER");
@@ -49,6 +49,7 @@ export default function AuthForm() {
     if (variant === "REGISTER") {
       axios
         .post("/api/register", data)
+        .then(() => signIn("credentials", data))
         .catch(() => toast.error("Something went wrong"))
         .finally(() => setIsLoading(false));
     }
