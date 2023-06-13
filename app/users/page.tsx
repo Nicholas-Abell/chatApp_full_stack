@@ -1,11 +1,14 @@
-import React from 'react';
+"use client";
+import { signOut } from "next-auth/react";
+import React from "react";
 
-type pageProps = {
-    
+type pageProps = {};
+
+const Users: React.FC<pageProps> = () => {
+  return (
+    <>
+      <button onClick={() => signOut}>Logout</button>
+    </>
+  );
 };
-
-const page:React.FC<pageProps> = () => {
-    
-    return <div>Have a good coding</div>
-}
-export default page;
+export default Users;
