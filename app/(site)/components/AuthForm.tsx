@@ -23,7 +23,7 @@ export default function AuthForm() {
       console.log("Authenticated");
       router.push("/users");
     }
-  }, [session?.status, router]);
+  }, [session.status, router]);
 
   const toggleVariant = useCallback(() => {
     if (variant === "LOGIN") setVariant("REGISTER");
@@ -85,7 +85,7 @@ export default function AuthForm() {
         }
       })
       .finally(() => {
-        setIsLoading(false), console.log("click");
+        setIsLoading(false);
       });
   };
 
