@@ -23,7 +23,7 @@ export default function AuthForm() {
       console.log("Authenticated");
       router.push("/users");
     }
-  }, [session.status, router]);
+  }, [session?.status, router]);
 
   const toggleVariant = useCallback(() => {
     if (variant === "LOGIN") setVariant("REGISTER");
@@ -64,7 +64,7 @@ export default function AuthForm() {
             toast.error("Invalid Credentials");
           }
 
-          if (callback?.ok && !callback.error) {
+          if (callback?.ok && !callback?.error) {
             toast.success("Logged In");
           }
         })

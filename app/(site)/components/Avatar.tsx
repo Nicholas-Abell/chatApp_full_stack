@@ -17,6 +17,7 @@ const Avatar: React.FC<AvatarProps> = ({ user }) => {
           fill
         />
       </div>
+      <span className="absolute inline-block rounded-full bg-green-400 top0 right-0 ring-white h-2 w-2 md:h-3 md:w-3 overflow-hidden" />
     </div>
   );
 };
