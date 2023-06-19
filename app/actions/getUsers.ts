@@ -20,12 +20,11 @@ const getUsers = async () => {
         },
       },
     });
-
     return users;
-  } catch (error) {
-    return [];
+  } catch (error: any) {
     console.log("Get User Error: ", error);
+    return [];
   }
 };
 
-export default getUsers();
+export default getUsers;
