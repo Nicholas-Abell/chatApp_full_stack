@@ -7,6 +7,6 @@ type UserBoxProps = {
 };
 
 const UserBox: React.FC<UserBoxProps> = ({ data }) => {
-  return <div>{data.email}</div>;
+  return <div>{data.email?.split('@', 1)}</div>;
 };
 export default UserBox;
